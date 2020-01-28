@@ -16,11 +16,13 @@ window.addEventListener("load", function() {
           const description = document.getElementById(
             "temperature-description"
           );
-          timezone.textContent = data.timezone;
+          let cityName = data.timezone;
+          cityName = cityName.replace(/.*\//g, "");
+          timezone.textContent = cityName;
           degree.textContent = temperature;
           description.textContent = summary;
           const iconID = document.getElementById("iconID");
-          setIcons(icon, iconID);
+          setIcons(iconID, icon);
           let celcius = (temperature - 32) * (5 / 9);
           celcius = Math.floor(celcius * 100) / 100;
           const tempPlace = document.getElementById("degree-section");
@@ -37,7 +39,7 @@ window.addEventListener("load", function() {
         });
     });
   }
-  function setIcons(icon, iconID) {
+  function setIcons(iconID, icon) {
     const skycons = new Skycons({ color: "yellow" });
     const currentIcon = icon.replace(/-/g, "_").toUpperCase();
     skycons.play();
